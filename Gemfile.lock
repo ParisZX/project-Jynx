@@ -112,6 +112,7 @@ GEM
     will_paginate (3.0.4)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
