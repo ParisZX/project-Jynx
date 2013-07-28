@@ -10,7 +10,7 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :messages, dependent: :destroy
+  has_many :microposts, dependent: :destroy
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
 
@@ -37,10 +37,8 @@ class User < ActiveRecord::Base
 
   def feed
     # This is preliminary. See "Following users" for the full implementation.
-    Message.where("user_id = ?", id)
+    Micropost.where("user_id = ?", id)
   end
-
-
 
   private
 

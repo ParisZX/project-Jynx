@@ -9,12 +9,12 @@
     </section>
   </aside>
   <div class="span8">
-    <% if @user.messages.any? %>
-      <h3>Inbox (<%= @user.messages.count %>)</h3>
+    <% if @user.microposts.any? %>
+      <h3>Inbox (<%= @user.microposts.count %>)</h3>
       <ol class="inbox">
-        <%= render @messages %>
+        <%= render @microposts %>
       </ol>
-      <%= will_paginate @messages %>
+      <%= will_paginate @microposts %>
     <% end %>
   </div>
 </div>
