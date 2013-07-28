@@ -1,13 +1,30 @@
 <% provide(:title, 'Home') %>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/message_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Message Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
 <div class="center hero-unit">
 	<h1>Home Page</h1>
 	<h2>
   		This is the home page for the
   		Jynx web application, currently under construction.
   	</h2>
-  	<% if !signed_in? %>
+  	
   	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-  	<% end %>
+  	
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<% end %>

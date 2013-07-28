@@ -8,4 +8,13 @@
       </h1>
     </section>
   </aside>
+  <div class="span8">
+    <% if @user.messages.any? %>
+      <h3>Inbox (<%= @user.messages.count %>)</h3>
+      <ol class="inbox">
+        <%= render @messages %>
+      </ol>
+      <%= will_paginate @messages %>
+    <% end %>
+  </div>
 </div>

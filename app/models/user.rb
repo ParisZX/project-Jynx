@@ -10,6 +10,7 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :messages, dependent: :destroy
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
 
@@ -32,6 +33,14 @@ class User < ActiveRecord::Base
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+
+
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Message.where("user_id = ?", id)
+  end
+
+
 
   private
 
