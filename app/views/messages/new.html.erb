@@ -1,0 +1,26 @@
+<% provide(:title, 'New Message') %>
+<h1>New Message</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @message, :url => user_messages_path(@user) do |f| %>
+
+      <% if @message.recepient_id.nil? %>
+      
+        <%= f.label "To" %>
+        <%= f.text_field :recepient_id %>
+
+      <% else %>
+      
+        <%= f.label "To" %>
+        <%= f.text_field :recepient_id, :value=>@message.recepient_id,:readonly => true %>
+      
+      <% end %>
+      
+        <%= f.label "Message" %>
+        <%= f.text_area :body %>
+
+        <%= f.submit "Send", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

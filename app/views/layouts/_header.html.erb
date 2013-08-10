@@ -14,6 +14,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Inbox", user_messages_path(current_user)%></li>
                 <li><%= link_to "Settings", edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
@@ -21,6 +22,21 @@
                 </li>
               </ul>
             </li>
+            <!-- <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Messaging<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                 <li class="nav-header">Private</li>
+                 <li><%= link_to "Compose New", new_user_message_path(current_user)%></li>
+                 
+                 <li><%= link_to "Sent", user_messages_path(current_user, :mailbox => :sent)%></li>
+                 <li><%= link_to "Archieved", user_messages_path(current_user, :mailbox => :archieved)%></li>
+                 <li class="divider"></li>
+                 <li class="nav-header">Groups</li>
+                 <li><a href="#">Create New</a></li>
+                 <li><a href="#">Inbox</a></li>
+                 <li><a href="#">Sent Items</a></li>
+               </ul>
+             </li> -->
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>

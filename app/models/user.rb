@@ -17,6 +17,17 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+  
+  has_many :sent_messages,  class_name: "Message",
+                            foreign_key: "sender_id"
+                            # order: "messages.created_at DESC",
+                            # conditions: ["messages.sender_deleted = ?", false]
+
+  has_many :received_messages,  class_name: "Message",
+                                foreign_key: "recepient_id"
+                                # order: "messages.created_at DESC",
+                                # conditions: ["messages.recepient_deleted = ?", false]
+ 
   # attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
 
@@ -56,6 +67,15 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy!
   end
+
+  def unread_messages?
+    unread_message_count > 0 ? true : false
+  end
+
+  # Returns the number of unread messages for this user
+  def unread_message_count
+    eval 'messages.count(:conditions => ["recepient_id = ? AND read_at IS NULL", self.user_id])'
+  end      
 
   private
 

@@ -1,0 +1,42 @@
+<h2>Your Inbox</h2>
+<% if @all_messages.any? %>
+   	<% for another_user in @other_users %>
+		<div id="<%= another_user.id %>" class="another_user animateHeight btn"> <%= "#{another_user.name}" %> </div>
+		<div class=" chatbox chatbox<%= another_user.id %>">
+		<% for message in @all_messages %>
+			<% if message.belongs_to_user?(another_user) %>
+				<% if current_user == another_user %>
+					<% if message.recepient_id == message.sender_id %>
+					<div class="content <%= another_user.id %>">
+						<%= "You said: #{message.body}" %>
+						<span class="timestamp pull-right <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
+					</div>	
+					<% end %>
+				<% else %>
+				<div class="content <%= another_user.id %>">
+					<% if current_user == message.sender %> 
+						<%= "You said: #{message.body}" %>
+					<% else %>
+						<%= "#{another_user.name} said: #{message.body}" %>
+					<% end %>		
+					<span class="timestamp pull-right <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
+				</div>
+				<% end %>
+			<% end %>
+		<% end %>
+			<div class="new_message_div <%= another_user.id %>">
+			<%= form_for current_user.sent_messages.build, :url => user_messages_path(@user) do |f| %>
+		        <%= f.hidden_field :recepient_id, :value => another_user.id, :readonly => true %>
+		        <%= f.text_area :body %>
+		        <%= f.submit "Answer", class: "btn" %>
+		        <hr/>
+		        <br/>
+		    <% end %>
+		    </div>   
+		</div>
+	<% end %>
+<% else %>
+	No messages in your Inbox
+<% end %>
+
+<%= link_to "New Message", new_user_message_path(@user), class: "btn btn-primary pull-right"%>
