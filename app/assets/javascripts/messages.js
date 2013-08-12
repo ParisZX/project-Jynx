@@ -3,7 +3,7 @@
 k=0;
 
 $(window).load(function(){
-$(".animateHeight").bind("click", function(e){
+$(".animateHeight").bind("click", function(e) {
    
     var myDiv = $(this);
     var div_class = myDiv.attr("id");
@@ -16,7 +16,7 @@ $(".animateHeight").bind("click", function(e){
     }
    	else {
 		k--;
-        $(".chatbox" + div_class).animate({"height":"50px"}, 1000);    
+        $(".chatbox" + div_class).animate({"height":"2px"}, 1000);    
 		$("." + div_class).fadeOut();
    	}
 });

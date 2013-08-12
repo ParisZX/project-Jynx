@@ -260,15 +260,37 @@ aside {
 
 .another_user {
   width: 700px;
+  height: 40px;
+  line-height:40px;
+  text-align:center;
   display: block;
   margin: auto;
-}
+  margin-bottom: 5px;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background-color:#ededed;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  
+  color:#777777;
+  font-size:15px;
+  padding:6px 24px;
+  }
 
+.another_user:hover {
+  background-color:#dfdfdf;
+}
+.another_user:active {
+  position:relative;
+  top:1px;
+}
 
 .chatbox {
 
      width: 700px;
-     height: 50px;
+     height: 2px;
      margin: auto;
      display: block;
      

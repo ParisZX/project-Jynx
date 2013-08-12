@@ -1,7 +1,7 @@
 <h2>Your Inbox</h2>
 <% if @all_messages.any? %>
    	<% for another_user in @other_users %>
-		<div id="<%= another_user.id %>" class="another_user animateHeight btn"> <%= "#{another_user.name}" %> </div>
+		<div id="<%= another_user.id %>" class="another_user animateHeight"> <%= "#{another_user.name}" %> </div>
 		<div class=" chatbox chatbox<%= another_user.id %>">
 		<% for message in @all_messages %>
 			<% if message.belongs_to_user?(another_user) %>
