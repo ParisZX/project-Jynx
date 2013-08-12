@@ -7,9 +7,6 @@ class MessagesController < ApplicationController
     @all_messages = current_user.received_messages + current_user.sent_messages
     @all_messages = @all_messages.uniq
     if @all_messages.any?
-      if @all_messages.count > 10 
-        @all_messages = @all_messages[-10..-1]
-      end
       @all_messages = @all_messages.sort_by { |id , s_id, r_id, s_del, r_del, body, r_at, con, cr_at, up_at| id }
       other_user_ids = (current_user.received_messages.pluck(:sender_id) + current_user.sent_messages.pluck(:recepient_id)).uniq
       @other_users = Array.new
@@ -18,6 +15,9 @@ class MessagesController < ApplicationController
       end
     end
   end
+
+
+
 
   def new
     @message = Message.new
@@ -30,15 +30,27 @@ class MessagesController < ApplicationController
   end
   
   def create
-    @message = Message.new(message_params)
-    @message.sender_id = @user.id
-    if @message.save
-      flash[:notice] = "Message has been sent"
-      redirect_to user_messages_path(@user)
+    if exists?
+      needs_change = User.find_by_name(message_params[:recepient_id])
+      @message = Message.new(message_params)
+      @message.recepient_id = needs_change.id
+      @message.sender_id = @user.id
+      if @message.save
+        flash[:notice] = "Message has been sent"
+        redirect_to user_messages_path(@user)
+      else
+        render :action => :new
+      end
     else
-      render :action => :new
+      flash[:error] = "User doesn't exist"
+      redirect_to user_messages_path(@user)
     end
   end
+
+  def exists?
+    !User.find_by_name(message_params[:recepient_id]).nil?
+  end
+
 
   def show
     @message = Message.readingmessage(params[:id],@user.id)
