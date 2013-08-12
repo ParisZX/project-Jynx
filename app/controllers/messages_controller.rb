@@ -4,11 +4,11 @@ class MessagesController < ApplicationController
   before_action :correct_user
 
   def index
-    @all_messages = current_user.received_messages + current_user.sent_messages
+    @all_messages = @user.received_messages + @user.sent_messages
     @all_messages = @all_messages.uniq
     if @all_messages.any?
       @all_messages = @all_messages.sort_by { |id , s_id, r_id, s_del, r_del, body, r_at, con, cr_at, up_at| id }
-      other_user_ids = (current_user.received_messages.pluck(:sender_id) + current_user.sent_messages.pluck(:recepient_id)).uniq
+      other_user_ids = (@user.received_messages.pluck(:sender_id) + @user.sent_messages.pluck(:recepient_id)).uniq
       @other_users = Array.new
       other_user_ids.each do |x| 
         @other_users.push(User.find_by_id(x))
