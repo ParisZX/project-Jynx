@@ -298,12 +298,18 @@ aside {
   .content {
     display:none;
     border-top: 1px solid #e8e8e8;
-    height: 30px;
-    padding-top:5px;
-  }
+    padding:5px;
+  
 
-  .timestamp {
-    display:none;
+    .body {
+      
+      width: 500px;
+    }
+
+
+    .timestamp {
+      float: right;
+    }
   }
 
   .new_message_div {

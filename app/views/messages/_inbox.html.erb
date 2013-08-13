@@ -8,18 +8,22 @@
 				<% if current_user == another_user %>
 					<% if message.recepient_id == message.sender_id %>
 					<div class="content <%= another_user.id %>">
+						<span class = "body">
 						<%= "You said: #{message.body}" %>
-						<span class="timestamp pull-right <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
+						</span>
+						<span class="timestamp <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
 					</div>	
 					<% end %>
 				<% else %>
 				<div class="content <%= another_user.id %>">
+					<span class = "body">
 					<% if current_user == message.sender %> 
 						<%= "You said: #{message.body}" %>
 					<% else %>
 						<%= "#{another_user.name} said: #{message.body}" %>
 					<% end %>		
-					<span class="timestamp pull-right <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
+					</span>
+					<span class="timestamp"><%= time_ago_in_words(message.created_at) %> ago</span>
 				</div>
 				<% end %>
 			<% end %>
