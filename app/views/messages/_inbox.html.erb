@@ -11,7 +11,7 @@
 						<span class = "body">
 						<%= "You said: #{message.body}" %>
 						</span>
-						<span class="timestamp <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
+						<br/><span class="timestamp <%= another_user.id %>"><%= time_ago_in_words(message.created_at) %> ago</span>
 					</div>	
 					<% end %>
 				<% else %>
@@ -23,7 +23,7 @@
 						<%= "#{another_user.name} said: #{message.body}" %>
 					<% end %>		
 					</span>
-					<span class="timestamp"><%= time_ago_in_words(message.created_at) %> ago</span>
+					<br/><span class="timestamp"><%= time_ago_in_words(message.created_at) %> ago</span>
 				</div>
 				<% end %>
 			<% end %>
