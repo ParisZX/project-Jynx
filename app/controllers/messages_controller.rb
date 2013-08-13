@@ -30,10 +30,8 @@ class MessagesController < ApplicationController
   end
   
   def create
-    if exists?
-      needs_change = User.find_by_name(message_params[:recepient_id])
+    if message_params[:container] == "reply"
       @message = Message.new(message_params)
-      @message.recepient_id = needs_change.id
       @message.sender_id = @user.id
       if @message.save
         flash[:notice] = "Message has been sent"
@@ -42,13 +40,28 @@ class MessagesController < ApplicationController
         render :action => :new
       end
     else
-      flash[:error] = "User doesn't exist"
-      redirect_to user_messages_path(@user)
+      if exists?
+        needs_change = User.find_by_name(message_params[:recepient_id])
+        @message = Message.new(message_params)
+        @message.recepient_id = needs_change.id
+        @message.sender_id = @user.id
+        if @message.save
+          flash[:notice] = "Message has been sent"
+          redirect_to user_messages_path(@user)
+        else
+          render :action => :new
+        end
+      else
+        flash[:error] = "User doesn't exist"
+        redirect_to user_messages_path(@user)
+      end
     end
   end
 
   def exists?
-    !User.find_by_name(message_params[:recepient_id]).nil?
+    
+      !User.find_by_name(message_params[:recepient_id]).nil?
+    
   end
 
 
@@ -78,8 +91,7 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:body, 
-                                      :recepient_id)
+      params.require(:message).permit(:body, :recepient_id, :container)
     end
 
 end

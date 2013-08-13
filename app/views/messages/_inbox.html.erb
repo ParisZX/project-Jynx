@@ -26,6 +26,7 @@
 		<% end %>
 			<div class="new_message_div <%= another_user.id %>">
 			<%= form_for current_user.sent_messages.build, :url => user_messages_path(@user) do |f| %>
+		        <%= f.hidden_field :container, :value => "reply", :readonly => true %>
 		        <%= f.hidden_field :recepient_id, :value => another_user.id, :readonly => true %>
 		        <%= f.text_area :body %>
 		        <%= f.submit "Answer", class: "btn" %>

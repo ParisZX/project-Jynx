@@ -5,6 +5,8 @@
   <div class="span6 offset3">
     <%= form_for @message, :url => user_messages_path(@user) do |f| %>
 
+        <%= f.hidden_field :container, :value => "new" %>
+
         <%= f.label "To" %>
         <%= f.text_field :recepient_id %>
 
