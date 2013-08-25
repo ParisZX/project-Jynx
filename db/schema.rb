@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130804122150) do
+ActiveRecord::Schema.define(version: 20130824160235) do
 
   create_table "messages", force: true do |t|
     t.string   "sender_id",                           null: false
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 20130804122150) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "uploads", force: true do |t|
+    t.string   "path"
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

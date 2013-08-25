@@ -16,9 +16,6 @@ class MessagesController < ApplicationController
     end
   end
 
-
-
-
   def new
     @message = Message.new
     if params[:reply_to]

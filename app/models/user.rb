@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
                                 foreign_key: "recepient_id"
                                 # order: "messages.created_at DESC",
                                 # conditions: ["messages.recepient_deleted = ?", false]
- 
+  has_many :uploads
+
   # attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
 
