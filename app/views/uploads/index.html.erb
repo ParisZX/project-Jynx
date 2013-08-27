@@ -1,5 +1,5 @@
+<%= provide(:title,'IDE') %>
 <div class="container">
-  <h2>Upload file</h2>
   <%= form_for Upload.new, :url => user_uploads_path(@user), :html => { :multipart => true, :id => "fileupload"  } do |f| %>
     
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -68,7 +68,7 @@
     <td class="start">{% if (!o.options.autoUpload) { %}
       <button class="btn btn-primary">
         <i class="icon-upload icon-white"></i>
-        <span>{%=locale.fileupload.start%}</span>
+        
       </button>
       {% } %}</td>
     {% } else { %}
@@ -77,7 +77,6 @@
     <td class="cancel">{% if (!i) { %}
       <button class="btn btn-warning">
         <i class="icon-ban-circle icon-white"></i>
-        <span>{%=locale.fileupload.cancel%}</span>
       </button>
       {% } %}</td>
   </tr>
@@ -134,4 +133,28 @@
       });
 
   });
+</script>
+
+<div class="editor">
+  <textarea id="code" name="code">
+        function findSequence(goal) {
+          function find(start, history) {
+            if (start == goal)
+              return history;
+            else if (start > goal)
+              return null;
+            else
+              return find(start + 5, "(" + history + " + 5)") ||
+                     find(start * 3, "(" + history + " * 3)");
+          }
+          return find(1, "1");
+        }
+  </textarea>
+</div>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true
+    });
 </script>
